@@ -23,7 +23,9 @@ app.post('/v1/auth', post_data)
 
 function get_weather_v1(request, response){
   var token1 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+  
   if(request.body.token == token1){
+    
     response.send(resp)
   }
   else{
@@ -32,12 +34,18 @@ function get_weather_v1(request, response){
 }
 
 function get_hello(request, response){
-  var token2 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-  if(request.body.token == token2){
-    response.send("Hi! I am Amulya")
+  const authHeader = request.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  const token2 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+  console.log(request.body)
+  if(token == "") response.sendStatus(401)
+  if(token == token2){
+    response.json({ "message" : "Hi! I am Amulya"})
   }
   else{
     console.log("Token Not Matching")
+    response.sendStatus(403)
   }
   
 }
@@ -55,7 +63,7 @@ function post_data(request, response){
       var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
       
       var res_json = {
-        "access-token" : token,
+        "access_token" : token,
         "expires" : new Date().toISOString()
       }
       console.log("validated")
