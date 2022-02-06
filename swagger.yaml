@@ -1,0 +1,67 @@
+swagger: "2.0"
+info:
+  description: "This is one of the sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "api.openweathermap.org"
+basePath: "/data/2.5"
+tags:
+- name: "pet"
+  description: "Everything about your Pets"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "store"
+  description: "Access to Petstore orders"
+- name: "user"
+  description: "Operations about user"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /weather:
+    get:
+      tags:
+      - "weather"
+      summary: "Get a city's temperature by its name"
+      description: ""
+      operationId: "get temperature by name"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "q"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "corvallis"
+          - "London"
+          default: "corvallis"
+        collectionFormat: "multi"
+      - name: "appid"
+        in: "query"
+        required: true
+        type: "string"
+        
+      security:
+        - APIKeyQueryParam: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+        "400":
+          description: "Invalid status value"
